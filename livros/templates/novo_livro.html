@@ -7,7 +7,6 @@
 {% block content %}
 
 <body>
-
 <h1>Cadastre seu livro</h1>
 <form method="POST">
     {% csrf_token %}
@@ -17,6 +16,36 @@
     Categoria: <input type="text" name="categoria">
     <button type="submit">Salvar</button>
 </form>
+
+<table>
+    <thead>
+        Lista de Livros
+    </thead>
+    <tbody>
+        <tr>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Ano</th>
+            <th>Categoria</th>
+        </tr>
+    </tbody>
+    <tfoot>
+        {% for livro in livros %}
+        <tr>
+            <td>{{ livro.titulo }}</td>
+            <td>{{ livro.autor }}</td>
+            <td>{{ livro.ano }}</td>
+            <td>{{ livro.categoria }}</td>
+            <td>
+                <a href="{% url 'editar_livro' livro.id %}">Editar</a>
+                <a href="{% url 'excluir_livro' livro.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tfoot>
+</table>
+
+
 </body>
 
 {% endblock %}
